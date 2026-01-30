@@ -22,30 +22,31 @@ class LXD(Plugin, UbuntuPlugin):
     services = ('snap.lxd.daemon', 'snap.lxd.activate')
 
     def setup(self):
+
+        lxc_cmds = [
+            "lxc image list local",
+            "lxc list local",
+            "lxc network list",
+            "lxc profile list local",
+            "lxc storage list local",
+            "lxc operation list",
+            "lxc info",
+            "lxc alias list",
+            "lxc config show",
+            "lxc remote list",
+            "lxc version",
+            "lxc warning list local",
+            "lxc auth permission list",
+            "lxc cluster list local",
+            "lxd cluster list-database local"
+        ]
+
         if self.is_snap:
 
             lxd_pred = SoSPredicate(self, services=['snap.lxd.daemon'],
                                     required={'services': 'all'})
 
             self.add_cmd_output("lxd.buginfo", pred=lxd_pred, snap_cmd=True)
-            
-            self.add_cmd_output([
-                "lxc image list",
-                "lxc list",
-                "lxc network list",
-                "lxc profile list",
-                "lxc storage list",
-                "lxc operation list",
-                "lxc info",
-                "lxc alias list",
-                "lxc config show",
-                "lxc remote list",
-                "lxc version",
-                "lxc warning list",
-                "lxc auth permission list",
-                "lxc cluster list",
-                "lxd cluster list-database"
-            ], pred=lxd_pred, snap_cmd=True)
 
             self.add_copy_spec([
                 '/var/snap/lxd/common/config',
@@ -129,26 +130,10 @@ class LXD(Plugin, UbuntuPlugin):
             ])
 
             self.add_cmd_output([
-                "lxc image list",
-                "lxc list",
-                "lxc network list",
-                "lxc profile list",
-                "lxc storage list",
-                "lxc operation list",
-                "lxc info",
-                "lxc alias list",
-                "lxc config show",
-                "lxc remote list",
-                "lxc version",
-                "lxc warning list",
-                "lxc auth permission list",
-                "lxc cluster list",
-                "lxd cluster list-database"
-            ], pred=lxd_pred)
-
-            self.add_cmd_output([
                 "find /var/lib/lxd -maxdepth 2 -type d -ls",
             ], suggest_filename='var-lxd-dirs.txt')
+
+        self.add_cmd_output(lxc_cmds, pred=lxd_pred, snap_cmd=self.is_snap)
 
     def postproc(self):
         self.do_cmd_private_sub('lxd.buginfo')
