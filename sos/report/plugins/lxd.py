@@ -28,6 +28,24 @@ class LXD(Plugin, UbuntuPlugin):
                                     required={'services': 'all'})
 
             self.add_cmd_output("lxd.buginfo", pred=lxd_pred, snap_cmd=True)
+            
+            self.add_cmd_output([
+                "lxc image list",
+                "lxc list",
+                "lxc network list",
+                "lxc profile list",
+                "lxc storage list",
+                "lxc operation list",
+                "lxc info",
+                "lxc alias list",
+                "lxc config show",
+                "lxc remote list",
+                "lxc version",
+                "lxc warning list",
+                "lxc auth permission list",
+                "lxc cluster list",
+                "lxd cluster list-database"
+            ], pred=lxd_pred, snap_cmd=True)
 
             self.add_copy_spec([
                 '/var/snap/lxd/common/config',
@@ -115,7 +133,17 @@ class LXD(Plugin, UbuntuPlugin):
                 "lxc list",
                 "lxc network list",
                 "lxc profile list",
-                "lxc storage list"
+                "lxc storage list",
+                "lxc operation list",
+                "lxc info",
+                "lxc alias list",
+                "lxc config show",
+                "lxc remote list",
+                "lxc version",
+                "lxc warning list",
+                "lxc auth permission list",
+                "lxc cluster list",
+                "lxd cluster list-database"
             ], pred=lxd_pred)
 
             self.add_cmd_output([
