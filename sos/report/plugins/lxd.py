@@ -24,21 +24,20 @@ class LXD(Plugin, UbuntuPlugin):
     def setup(self):
 
         lxc_cmds = [
-            "lxc image list local",
-            "lxc list local",
-            "lxc network list",
-            "lxc profile list local",
-            "lxc storage list local",
-            "lxc operation list",
-            "lxc info",
+            "lxc image list local:",
+            "lxc list local:",
+            "lxc network list local:",
+            "lxc profile list local:",
+            "lxc storage list local:",
+            "lxc operation list local:",
+            "lxc info local:",
             "lxc alias list",
-            "lxc config show",
+            "lxc config show local:",
             "lxc remote list",
-            "lxc version",
-            "lxc warning list local",
-            "lxc auth permission list",
-            "lxc cluster list local",
-            "lxd cluster list-database local"
+            "lxc version local:",
+            "lxc warning list local:",
+            "lxc auth permission list local:",
+            "lxc cluster list local:"
         ]
 
         if self.is_snap:
